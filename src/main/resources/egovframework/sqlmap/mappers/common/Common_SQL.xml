@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "Common">
+	
+	<resultMap id="AccountVo" type="com.bil.account.service.Impl.AccountVo">
+		<result property="accountSeq" column="account_seq"/>
+		<result property="profitCost" column="profit_cost"/>
+		<result property="bigGroup" column="big_group"/>
+		<result property="middleGroup" column="middle_group"/>
+		<result property="smallGroup" column="small_group"/>
+		<result property="detailGroup" column="detail_group"/>
+		<result property="comment" column="comment"/>
+		<result property="transactionMoney" column="transaction_money"/>
+		<result property="transactionDate" column="transaction_date"/>
+		<result property="writer" column="writer"/>
+		<result property="regDate" column="reg_date"/>
+	</resultMap>
+	
+	<!-- 	코드 테이블 에서 셀렉트 박스 리스트 검색 -->
+	<select id="selectCombo" parameterType="map" resultType="egovMap">
+		
+		<![CDATA[
+		
+		SELECT
+		  CODE,
+		  COM_KOR
+		FROM CODE_MASTER
+		WHERE
+			CATEGORY = #{category}
+		AND
+			USE_YN     ='Y'
+			]]>
+	</select>
+
+	<!-- 저장 -->
+	<insert id="accountInsertPro" parameterType="AccountVo">
+		
+			<selectKey keyProperty="accountSeq" resultType="int" order="BEFORE">
+				
+			</selectKey>
+		
+			INSERT INTO ACCOUNT_TB (ACCOUNT_SEQ, PROFIT_COST, BIG_GROUP,MIDDLE_GROUP,SMALL_GROUP,DETAIL_GROUP,COMMENTS,TRANSACTION_MONEY,TRANSACTION_DATE,WRITER,REG_DATE) 
+			VALUES (ACCOUNT_SEQ.nextval,#{profitCost},#{bigGroup},#{middleGroup},#{smallGroup},#{detailGroup},#{comment},#{transactionMoney},sysdate,#{writer},sysdate)
+			
+	</insert>
+
+
+</mapper>
