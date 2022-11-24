@@ -6,6 +6,11 @@
 
 <script type="text/javascript">
 
+$(document).ready(function(){
+	
+	
+	
+});
 
 </script>
 
@@ -37,7 +42,18 @@
 			      </tr>
 			    </thead>
 			    <tbody>
-
+					<c:forEach items="${accountList}" var="accountList">
+					<tr align="center">
+						        <th style="text-align: center;" >${accountList.profitCost}</th>
+						        <th style="text-align: center;" >${accountList.bigGroup}</th>
+						        <th style="text-align: center;" >${accountList.middleGroup}</th>
+					        	<th style="text-align: center;" >${accountList.smallGroup}</th>
+						        <th style="text-align: center;" >${accountList.detailGroup}</th>
+						        <th style="text-align: center;" >${accountList.transactionMoney}원</th>
+						        <th style="text-align: center;" >${accountList.transactionDate}</th>
+						        <th style="text-align: center;" >${accountList.writer}</th>
+			      	</tr>
+					</c:forEach>
 
 			    </tbody>
 			</table>

@@ -64,6 +64,21 @@ public class LoginController {
 		return result;
 	}
 	
+	
+	//logout
+	@RequestMapping(value="/login/logout.do")
+	public String logout(HttpSession session) {
+		
+		//세션의 값 삭제
+		session.removeAttribute("ahtherUser");
+		session.invalidate();
+		UserVO autherUser = (UserVO) session.getAttribute("autherUser");
+		System.out.println("autherUserautherUserautherUser" + autherUser);
+		return "redirect:/login/login.do";
+	}
+	
+	
+	
 	/*
 	@RequestMapping(value="/login/idCkedAjax.do")
 	public ModelAndView idCkedAjax(HttpServletRequest request ) throws Exception {

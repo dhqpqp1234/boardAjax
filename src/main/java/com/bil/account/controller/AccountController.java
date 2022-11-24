@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,12 +57,19 @@ public class AccountController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/account/accountList.do")
-	public String selectSampleList(HttpServletRequest request, ModelMap model) throws Exception {
+	public String selectSampleList(HttpServletRequest request, ModelMap model,
+									@ModelAttribute AccountVo accountVo,
+									HttpSession session) throws Exception {
 
-		Map<String, Object> inOutMap  = CommUtils.getFormParam(request);
-
-
-		model.put("inOutMap", inOutMap);
+		//Map<String, Object> inOutMap  = CommUtils.getFormParam(request);
+		
+		
+		List<AccountVo> accountList = accountService.selectList(accountVo);
+		
+		System.out.println("Controller ------> AccountList" + accountList);
+		
+		model.addAttribute("accountList",accountList);
+		//model.put("inOutMap", inOutMap);
 		return "/account/accountList";
 	}
 
@@ -77,6 +86,7 @@ public class AccountController {
 		
 		UserVO autherUser = (UserVO) session.getAttribute("autherUser");
 		
+		
 		Map<String, Object> inOutMap = new HashMap<>();
 
 
@@ -91,10 +101,14 @@ public class AccountController {
 	
 	@ResponseBody
 	@RequestMapping(value="/account/accountInsertPro.do", method= {RequestMethod.POST})
-	public int accountInsertPro( @RequestBody AccountVo accountVo, HttpSession session) {
+	public int accountInsertPro( @RequestBody AccountVo accountVo,
+								 HttpSession session, Model model) {
 		
 		UserVO userVO = (UserVO) session.getAttribute("autherUser");
 		String userId = userVO.getUserId();
+		
+		
+		model.addAttribute("userVO",userVO);
 		
 		accountVo.setWriter(userId);
 		System.out.println("accountInsertCon" + accountVo);
@@ -104,9 +118,10 @@ public class AccountController {
 		return count;
 	}
 	
-	//업데이트
+	//업데이트폼
 	@RequestMapping(value="/account/accountUpdate.do")
-	public String accountUpdate() {
+	public String accountUpdate(HttpServletRequest request, ModelMap model, HttpSession session) {
+		
 		return "/account/accountUpdate";
 	}
 	

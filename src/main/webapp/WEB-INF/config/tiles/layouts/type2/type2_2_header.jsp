@@ -24,10 +24,10 @@
 		        </ul>
 	        </li>
 	      </ul>
-
+			
 	      <ul class="nav navbar-nav ">
-	        <li class="dropdown active"><span><font size="2px" color="white" >  	<br /> 님 로그인 </font></span></li>
-	        <li class="active"><a href="/login/logout.do"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+	        <li class="dropdown active"><span><font size="2px" color="white" >  	<br/> ${sessionScope.autherUser.name}님 로그인  </font></span></li>
+	        <li class="active"><a href="${pageContext.request.contextPath}/login/logout.do"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
 	      </ul>
 
 	    </div>

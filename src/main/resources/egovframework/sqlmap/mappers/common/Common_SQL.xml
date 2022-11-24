@@ -17,6 +17,24 @@
 		<result property="regDate" column="reg_date"/>
 	</resultMap>
 	
+	<!-- 전체 리스트 출력 -->
+	<select id="selectList" parameterType="AccountVo" resultType="AccountVo">
+		<![CDATA[
+			select 
+			        a.account_seq,
+			        (select com_kor from code_master where a.profit_cost = code) as profitCost,
+			        (select com_kor from code_master where a.big_group = code) as bigGroup,
+			        (select com_kor from code_master where a.middle_group = code) as middleGroup,
+			        (select com_kor from code_master where a.small_group = code) as smallGroup,
+			        (select com_kor from code_master where a.detail_group = code) as detailGroup,
+			        transaction_money as transactionMoney,
+			        transaction_date as transactionMoney,
+			        writer
+			from account_tb a
+			order by account_seq desc
+		]]>
+	</select>
+	
 	<!-- 	코드 테이블 에서 셀렉트 박스 리스트 검색 -->
 	<select id="selectCombo" parameterType="map" resultType="egovMap">
 		
@@ -35,15 +53,31 @@
 
 	<!-- 저장 -->
 	<insert id="accountInsertPro" parameterType="AccountVo">
+		<![CDATA[
 		
-			<selectKey keyProperty="accountSeq" resultType="int" order="BEFORE">
-				
-			</selectKey>
 		
 			INSERT INTO ACCOUNT_TB (ACCOUNT_SEQ, PROFIT_COST, BIG_GROUP,MIDDLE_GROUP,SMALL_GROUP,DETAIL_GROUP,COMMENTS,TRANSACTION_MONEY,TRANSACTION_DATE,WRITER,REG_DATE) 
 			VALUES (ACCOUNT_SEQ.nextval,#{profitCost},#{bigGroup},#{middleGroup},#{smallGroup},#{detailGroup},#{comment},#{transactionMoney},sysdate,#{writer},sysdate)
 			
+		]]>
 	</insert>
-
-
+	
+	<!-- 글 1개 가져오기 -->
+	<!--  
+	<select id="accountGetOne" parameterType="int" resultType="AccountVo">
+		<![CDATA[
+			select account_seq,
+			       profit_cost,
+			       big_group,
+			       middle_group,
+			       small_Group,
+			       detail_group,
+			       comments,
+			       transaction_money,
+			       transaction_date
+			from account_tb
+			where account_seq = #{accountSeq}
+		]]>
+	</select>
+	-->
 </mapper>

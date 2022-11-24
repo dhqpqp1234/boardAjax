@@ -11,7 +11,6 @@ $(document).ready(function(){
 		console.log("경후니뱅신")
 		
 		var category = $("#profitCost option:selected").val();
-		console.log(category);
 		
 		$.ajax({
 			url : "${pageContext.request.contextPath}/account/selectCombo.do",		
@@ -46,7 +45,6 @@ $(document).ready(function(){
 
 	
 	$("#bigGroup").on("change",function(){
-		console.log("경후니뱅신")
 		
 		var category = $("#bigGroup option:selected").val();
 		console.log(category);
@@ -84,7 +82,6 @@ $(document).ready(function(){
 
 	
 	$("#middleGroup").on("change",function(){
-		console.log("경후니뱅신")
 		
 		var category = $("#middleGroup option:selected").val();
 		console.log(category);
@@ -121,7 +118,6 @@ $(document).ready(function(){
 	});
 	
 	$("#smallGroup").on("change",function(){
-		console.log("경후니뱅신")
 		
 		var category = $("#smallGroup option:selected").val();
 		console.log(category);
@@ -157,6 +153,8 @@ $(document).ready(function(){
 		
 	});
 	
+	
+	
 	//등록버튼
 	$("#accountInsert").on("click",function(){
 		console.log("accountInsert버튼")
@@ -171,15 +169,6 @@ $(document).ready(function(){
 		var transactionDate = $("#transactionDate").val();
 		var writer = '${autherUser.userId}';
 		
-		console.log("profitCost" + profitCost)
-		console.log("bigGroup" + bigGroup)
-		console.log("middleGroup" + middleGroup)
-		console.log("smallGroup" + smallGroup)
-		console.log("detailGroup" + detailGroup)
-		console.log("comment" + comment)
-		console.log("transactionMoney" + transactionMoney)
-		console.log("transactionDate" + transactionDate)
-		console.log("writer" + writer)
 		
 		var accountVo = {
 			writer : writer,
@@ -200,8 +189,7 @@ $(document).ready(function(){
 				contentType : "application/json",
 				dataType : "JSON",
 				success : function(accountVo) {
-					alert("등록 되었습니다.")
-					window.location.href="${pageContext.request.contextPath}/account/accountUpdate.do"
+					alert("등록 되었습니다.");
 				},
 				
 				error : function(XHR, status, error) {
@@ -252,7 +240,7 @@ $(document).ready(function(){
 	<div class="col-sm-12"><label for="disabledInput" class="col-sm-12 control-label"></label></div>
 	<div class="col-sm-12"><label for="disabledInput" class="col-sm-12 control-label"></label></div>
 
-
+	
 
 	<div class="col-sm-11" id="costDiv">
 		<div>
